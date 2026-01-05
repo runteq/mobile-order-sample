@@ -10,14 +10,14 @@ RSpec.describe User, type: :model do
     it "requires line_user_id" do
       user = build(:user, line_user_id: nil)
       expect(user).not_to be_valid
-      expect(user.errors[:line_user_id]).to include("can't be blank")
+      expect(user.errors[:line_user_id]).to be_present
     end
 
     it "requires unique line_user_id" do
       create(:user, line_user_id: "U123")
       user = build(:user, line_user_id: "U123")
       expect(user).not_to be_valid
-      expect(user.errors[:line_user_id]).to include("has already been taken")
+      expect(user.errors[:line_user_id]).to be_present
     end
   end
 

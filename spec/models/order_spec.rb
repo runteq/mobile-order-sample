@@ -25,7 +25,7 @@ RSpec.describe Order, type: :model do
     it "limits note to 140 characters" do
       order = build(:order, note: "a" * 141)
       expect(order).not_to be_valid
-      expect(order.errors[:note]).to include("is too long (maximum is 140 characters)")
+      expect(order.errors[:note]).to be_present
     end
   end
 

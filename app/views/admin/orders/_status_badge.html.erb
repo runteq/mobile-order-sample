@@ -9,5 +9,5 @@
   }
 %>
 <span class="px-2 py-1 text-xs rounded-full <%= status_classes[status] || 'bg-gray-100 text-gray-800' %>">
-  <%= status.capitalize %>
+  <%= t("order.status.#{status}", default: status.capitalize) %>
 </span>

@@ -46,6 +46,7 @@ export default class extends Controller {
           'Accept': 'text/vnd.turbo-stream.html',
           'X-CSRF-Token': csrfToken
         },
+        credentials: 'include',
         body: `qty=${qty}`
       })
 

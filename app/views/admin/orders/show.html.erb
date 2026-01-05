@@ -1,19 +1,19 @@
 <div class="flex justify-between items-center mb-6">
-  <h1 class="text-2xl font-bold">Order #<%= @order.id %></h1>
-  <%= link_to "Back to Orders", admin_orders_path, class: "text-gray-500 hover:text-gray-700" %>
+  <h1 class="text-2xl font-bold">注文 #<%= @order.id %></h1>
+  <%= link_to "注文一覧に戻る", admin_orders_path, class: "text-gray-500 hover:text-gray-700" %>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
   <div class="lg:col-span-2 space-y-6">
     <div class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-lg font-bold mb-4">Order Items</h2>
+      <h2 class="text-lg font-bold mb-4">注文内容</h2>
       <table class="min-w-full">
         <thead>
           <tr class="border-b">
-            <th class="text-left py-2">Product</th>
-            <th class="text-right py-2">Price</th>
-            <th class="text-right py-2">Qty</th>
-            <th class="text-right py-2">Subtotal</th>
+            <th class="text-left py-2">商品</th>
+            <th class="text-right py-2">単価</th>
+            <th class="text-right py-2">数量</th>
+            <th class="text-right py-2">小計</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="3" class="text-right py-3 font-bold">Total</td>
+            <td colspan="3" class="text-right py-3 font-bold">合計</td>
             <td class="text-right py-3 font-bold text-lg"><%= number_to_currency(@order.total_price_yen, unit: "¥", precision: 0) %></td>
           </tr>
         </tfoot>
@@ -37,7 +37,7 @@
 
     <% if @order.note.present? %>
       <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-lg font-bold mb-2">Note</h2>
+        <h2 class="text-lg font-bold mb-2">備考</h2>
         <p class="text-gray-600"><%= @order.note %></p>
       </div>
     <% end %>
@@ -45,23 +45,23 @@
 
   <div class="space-y-6">
     <div class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-lg font-bold mb-4">Order Details</h2>
+      <h2 class="text-lg font-bold mb-4">注文詳細</h2>
       <dl class="space-y-3">
         <div>
-          <dt class="text-sm text-gray-500">Status</dt>
+          <dt class="text-sm text-gray-500">注文状況</dt>
           <dd class="mt-1"><%= render partial: "status_badge", locals: { status: @order.status } %></dd>
         </div>
         <div>
-          <dt class="text-sm text-gray-500">Customer</dt>
-          <dd class="mt-1 font-medium"><%= @order.user.display_name || "User ##{@order.user.id}" %></dd>
+          <dt class="text-sm text-gray-500">お客様</dt>
+          <dd class="mt-1 font-medium"><%= @order.user.display_name || "ユーザー ##{@order.user.id}" %></dd>
         </div>
         <div>
-          <dt class="text-sm text-gray-500">Created</dt>
+          <dt class="text-sm text-gray-500">注文日時</dt>
           <dd class="mt-1"><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></dd>
         </div>
         <% if @order.pickup_at.present? %>
           <div>
-            <dt class="text-sm text-gray-500">Pickup Time</dt>
+            <dt class="text-sm text-gray-500">受取時間</dt>
             <dd class="mt-1"><%= @order.pickup_at.strftime("%Y-%m-%d %H:%M") %></dd>
           </div>
         <% end %>
@@ -69,14 +69,15 @@
     </div>
 
     <div class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-lg font-bold mb-4">Update Status</h2>
+      <h2 class="text-lg font-bold mb-4">注文状況を更新</h2>
       <div class="space-y-2">
         <% Order.statuses.keys.each do |status| %>
           <% next if status == @order.status %>
-          <%= button_to status.capitalize,
+          <%= button_to t("order.status.#{status}", default: status.capitalize),
                         update_status_admin_order_path(@order),
                         params: { status: status },
                         method: :patch,
+                        data: { turbo: false },
                         class: "w-full text-left px-4 py-2 rounded border hover:bg-gray-50 transition" %>
         <% end %>
       </div>

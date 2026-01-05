@@ -1,7 +1,7 @@
 <div class="p-4">
   <h2 class="text-xl font-bold mb-4">注文確認</h2>
 
-  <%= form_with url: liff_orders_path, method: :post, class: "space-y-6" do |f| %>
+  <%= form_with url: liff_orders_path, method: :post, data: { turbo: false }, class: "space-y-6" do |f| %>
     <div class="bg-white rounded-lg shadow p-4">
       <h3 class="font-bold mb-3">注文内容</h3>
       <div class="space-y-3">

@@ -17,7 +17,9 @@ module Liff
 
       user.update(display_name: display_name) if display_name.present? && user.display_name != display_name
 
+      # Store both user_id and line_user_id for redundancy
       session[:user_id] = user.id
+      session[:line_user_id] = line_user_id
 
       render json: { success: true, user_id: user.id }
     end

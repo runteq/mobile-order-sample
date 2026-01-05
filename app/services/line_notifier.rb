@@ -13,15 +13,15 @@ class LineNotifier
     return unless @channel_access_token.present?
 
     message = <<~MSG
-      Thank you for your order!
+      ご注文ありがとうございます！
 
-      Order ##{order.id}
-      Total: ¥#{order.total_price_yen}
+      注文番号: ##{order.id}
+      合計: ¥#{order.total_price_yen}
 
-      Items:
-      #{order.order_items.map { |i| "- #{i.product.name} x#{i.qty}" }.join("\n")}
+      注文内容:
+      #{order.order_items.map { |i| "・#{i.product.name} x#{i.qty}" }.join("\n")}
 
-      [This is a demo order]
+      ※これはデモ注文です
     MSG
 
     push_message(order.user.line_user_id, message.strip)
@@ -31,11 +31,11 @@ class LineNotifier
     return unless @channel_access_token.present?
 
     message = <<~MSG
-      Your order is ready for pickup!
+      ご注文の準備ができました！
 
-      Order ##{order.id}
+      注文番号: ##{order.id}
 
-      [This is a demo order]
+      ※これはデモ注文です
     MSG
 
     push_message(order.user.line_user_id, message.strip)

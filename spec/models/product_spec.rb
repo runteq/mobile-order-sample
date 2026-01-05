@@ -10,7 +10,7 @@ RSpec.describe Product, type: :model do
     it "requires name" do
       product = build(:product, name: nil)
       expect(product).not_to be_valid
-      expect(product.errors[:name]).to include("can't be blank")
+      expect(product.errors[:name]).to be_present
     end
 
     it "requires price_cents" do

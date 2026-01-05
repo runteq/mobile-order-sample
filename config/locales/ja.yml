@@ -1,9 +1,15 @@
 ja:
+  number:
+    currency:
+      format:
+        unit: "¥"
+        precision: 0
+        format: "%u%n"
   order:
     status:
       pending: 受付中
-      confirmed: 確認済み
+      accepted: 確認済み
       preparing: 準備中
       ready: 準備完了
       completed: 完了
-      cancelled: キャンセル
+      canceled: キャンセル

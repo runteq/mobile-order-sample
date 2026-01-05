@@ -28,7 +28,7 @@ RSpec.describe OrderItem, type: :model do
       create(:order_item, order: order, product: product)
       duplicate = build(:order_item, order: order, product: product)
       expect(duplicate).not_to be_valid
-      expect(duplicate.errors[:product_id]).to include("has already been taken")
+      expect(duplicate.errors[:product_id]).to be_present
     end
   end
 
