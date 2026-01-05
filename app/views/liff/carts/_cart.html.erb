@@ -26,24 +26,23 @@
           <p class="text-green-600 font-bold"><%= number_to_currency(item[:product].price_yen, unit: "¥", precision: 0) %></p>
         </div>
 
-        <div class="flex items-center gap-2" data-controller="cart-item">
-          <%= button_to liff_cart_item_path(product_id: item[:product].id),
-                        method: :patch,
-                        params: { qty: item[:qty] - 1 },
-                        class: "w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-lg font-bold",
-                        data: { turbo_frame: "_top" } do %>
+        <div class="flex items-center gap-2"
+             data-controller="quantity"
+             data-quantity-product-id-value="<%= item[:product].id %>"
+             data-quantity-qty-value="<%= item[:qty] %>">
+          <button type="button"
+                  data-action="click->quantity#decrement"
+                  class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-lg font-bold hover:bg-gray-300 transition">
             -
-          <% end %>
+          </button>
 
-          <span class="w-8 text-center font-medium"><%= item[:qty] %></span>
+          <span class="w-8 text-center font-medium" data-quantity-target="display"><%= item[:qty] %></span>
 
-          <%= button_to liff_cart_item_path(product_id: item[:product].id),
-                        method: :patch,
-                        params: { qty: item[:qty] + 1 },
-                        class: "w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-lg font-bold",
-                        data: { turbo_frame: "_top" } do %>
+          <button type="button"
+                  data-action="click->quantity#increment"
+                  class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-lg font-bold hover:bg-gray-300 transition">
             +
-          <% end %>
+          </button>
         </div>
       </div>
     <% end %>
