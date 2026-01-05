@@ -19,8 +19,8 @@
       <% @products.each do |product| %>
         <tr>
           <td class="px-6 py-4 whitespace-nowrap">
-            <% if product.image_url.present? %>
-              <img src="<%= product.image_url %>" alt="<%= product.name %>" class="w-12 h-12 rounded object-cover">
+            <% if product.image.attached? %>
+              <%= image_tag product.image.variant(resize_to_limit: [100, 100]), alt: product.name, class: "w-12 h-12 rounded object-cover" %>
             <% else %>
               <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">
                 No Img

@@ -46,7 +46,7 @@ module Admin
     end
 
     def product_params
-      params.require(:product).permit(:name, :price_cents, :image_url, :is_active, :sort_order)
+      params.require(:product).permit(:name, :price_cents, :image, :is_active, :sort_order)
     end
   end
 end

@@ -4,8 +4,8 @@
   <div class="grid grid-cols-2 gap-4">
     <% @products.each do |product| %>
       <div class="bg-white rounded-lg shadow overflow-hidden" id="<%= dom_id(product) %>">
-        <% if product.image_url.present? %>
-          <img src="<%= product.image_url %>" alt="<%= product.name %>" class="w-full h-32 object-cover">
+        <% if product.image.attached? %>
+          <%= image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name, class: "w-full h-32 object-cover" %>
         <% else %>
           <div class="w-full h-32 bg-gray-200 flex items-center justify-center">
             <span class="text-gray-400">No Image</span>

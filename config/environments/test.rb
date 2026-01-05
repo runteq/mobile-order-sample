@@ -8,8 +8,8 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Disable host authorization for testing
-  config.hosts = nil
+  # Disable host authorization middleware for testing
+  config.middleware.delete ActionDispatch::HostAuthorization
 
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false

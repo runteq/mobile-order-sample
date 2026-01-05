@@ -5,6 +5,7 @@ RUN apt-get update -qq && \
     build-essential \
     libpq-dev \
     libyaml-dev \
+    libvips \
     nodejs \
     npm \
     git \

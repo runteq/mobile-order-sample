@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+ENV["RAILS_ENV"] = "test"
+ENV["DATABASE_URL"] = ENV.fetch("TEST_DATABASE_URL", "postgres://postgres:password@db:5432/line_order_test")
+
+require "bundler/setup"
+load Gem.bin_path("rspec-core", "rspec")
