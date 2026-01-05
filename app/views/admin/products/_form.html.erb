@@ -1,7 +1,7 @@
 <%= form_with model: [:admin, @product], data: { turbo: false }, class: "space-y-6" do |f| %>
   <% if @product.errors.any? %>
     <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-      <h3 class="text-red-800 font-medium">Please fix the following errors:</h3>
+      <h3 class="text-red-800 font-medium">以下のエラーを修正してください：</h3>
       <ul class="mt-2 text-red-600 text-sm list-disc list-inside">
         <% @product.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,38 +11,38 @@
   <% end %>
 
   <div>
-    <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.label :name, "商品名", class: "block text-sm font-medium text-gray-700" %>
     <%= f.text_field :name, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
   </div>
 
   <div>
-    <%= f.label :price_cents, "Price (Yen)", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.label :price_cents, "価格（円）", class: "block text-sm font-medium text-gray-700" %>
     <%= f.number_field :price_cents, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
   </div>
 
   <div>
-    <%= f.label :image, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.label :image, "画像", class: "block text-sm font-medium text-gray-700" %>
     <% if @product.image.attached? %>
       <div class="mt-2 mb-2">
         <%= image_tag @product.image.variant(resize_to_limit: [200, 200]), class: "w-24 h-24 object-cover rounded" %>
       </div>
     <% end %>
     <%= f.file_field :image, accept: "image/png,image/jpeg,image/webp", class: "mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
-    <p class="mt-1 text-xs text-gray-500">PNG, JPEG, WebP (max 5MB)</p>
+    <p class="mt-1 text-xs text-gray-500">PNG, JPEG, WebP（最大5MB）</p>
   </div>
 
   <div>
-    <%= f.label :sort_order, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.label :sort_order, "表示順", class: "block text-sm font-medium text-gray-700" %>
     <%= f.number_field :sort_order, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
   </div>
 
   <div class="flex items-center">
     <%= f.check_box :is_active, class: "h-4 w-4 text-blue-600 border-gray-300 rounded" %>
-    <%= f.label :is_active, "Active", class: "ml-2 text-sm text-gray-700" %>
+    <%= f.label :is_active, "販売中", class: "ml-2 text-sm text-gray-700" %>
   </div>
 
   <div class="flex gap-4">
-    <%= f.submit class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer" %>
-    <%= link_to "Cancel", admin_products_path, class: "text-gray-500 hover:text-gray-700 px-4 py-2" %>
+    <%= f.submit @product.new_record? ? "登録する" : "更新する", class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer" %>
+    <%= link_to "キャンセル", admin_products_path, class: "text-gray-500 hover:text-gray-700 px-4 py-2" %>
   </div>
 <% end %>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Mobile Order Demo</title>
+    <title>管理画面 - RUNTEQカフェ</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,13 +17,13 @@
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center gap-8">
-            <span class="font-bold text-lg">Admin Panel</span>
+            <span class="font-bold text-lg">管理画面</span>
             <div class="flex gap-4">
-              <%= link_to "Orders", admin_orders_path, class: "hover:text-gray-300" %>
-              <%= link_to "Products", admin_products_path, class: "hover:text-gray-300" %>
+              <%= link_to "注文管理", admin_orders_path, class: "hover:text-gray-300" %>
+              <%= link_to "商品管理", admin_products_path, class: "hover:text-gray-300" %>
             </div>
           </div>
-          <%= link_to "View LIFF", liff_root_path, class: "text-sm text-gray-400 hover:text-white", target: "_blank" %>
+          <%= link_to "LIFFを開く", liff_root_path, class: "text-sm text-gray-400 hover:text-white", target: "_blank" %>
         </div>
       </div>
     </nav>
