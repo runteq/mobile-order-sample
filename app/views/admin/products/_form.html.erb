@@ -1,0 +1,42 @@
+<%= form_with model: [:admin, @product], class: "space-y-6" do |f| %>
+  <% if @product.errors.any? %>
+    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+      <h3 class="text-red-800 font-medium">Please fix the following errors:</h3>
+      <ul class="mt-2 text-red-600 text-sm list-disc list-inside">
+        <% @product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :name, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
+  </div>
+
+  <div>
+    <%= f.label :price_cents, "Price (Yen)", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :price_cents, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
+  </div>
+
+  <div>
+    <%= f.label :image_url, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.url_field :image_url, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2", placeholder: "https://..." %>
+  </div>
+
+  <div>
+    <%= f.label :sort_order, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :sort_order, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
+  </div>
+
+  <div class="flex items-center">
+    <%= f.check_box :is_active, class: "h-4 w-4 text-blue-600 border-gray-300 rounded" %>
+    <%= f.label :is_active, "Active", class: "ml-2 text-sm text-gray-700" %>
+  </div>
+
+  <div class="flex gap-4">
+    <%= f.submit class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer" %>
+    <%= link_to "Cancel", admin_products_path, class: "text-gray-500 hover:text-gray-700 px-4 py-2" %>
+  </div>
+<% end %>

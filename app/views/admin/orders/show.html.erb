@@ -1,0 +1,85 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold">Order #<%= @order.id %></h1>
+  <%= link_to "Back to Orders", admin_orders_path, class: "text-gray-500 hover:text-gray-700" %>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-6">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-bold mb-4">Order Items</h2>
+      <table class="min-w-full">
+        <thead>
+          <tr class="border-b">
+            <th class="text-left py-2">Product</th>
+            <th class="text-right py-2">Price</th>
+            <th class="text-right py-2">Qty</th>
+            <th class="text-right py-2">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_items.each do |item| %>
+            <tr class="border-b">
+              <td class="py-3"><%= item.product.name %></td>
+              <td class="text-right py-3"><%= number_to_currency(item.unit_price_cents, unit: "¥", precision: 0) %></td>
+              <td class="text-right py-3"><%= item.qty %></td>
+              <td class="text-right py-3 font-medium"><%= number_to_currency(item.subtotal, unit: "¥", precision: 0) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-right py-3 font-bold">Total</td>
+            <td class="text-right py-3 font-bold text-lg"><%= number_to_currency(@order.total_price_yen, unit: "¥", precision: 0) %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <% if @order.note.present? %>
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-lg font-bold mb-2">Note</h2>
+        <p class="text-gray-600"><%= @order.note %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="space-y-6">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-bold mb-4">Order Details</h2>
+      <dl class="space-y-3">
+        <div>
+          <dt class="text-sm text-gray-500">Status</dt>
+          <dd class="mt-1"><%= render partial: "status_badge", locals: { status: @order.status } %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-gray-500">Customer</dt>
+          <dd class="mt-1 font-medium"><%= @order.user.display_name || "User ##{@order.user.id}" %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-gray-500">Created</dt>
+          <dd class="mt-1"><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></dd>
+        </div>
+        <% if @order.pickup_at.present? %>
+          <div>
+            <dt class="text-sm text-gray-500">Pickup Time</dt>
+            <dd class="mt-1"><%= @order.pickup_at.strftime("%Y-%m-%d %H:%M") %></dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-bold mb-4">Update Status</h2>
+      <div class="space-y-2">
+        <% Order.statuses.keys.each do |status| %>
+          <% next if status == @order.status %>
+          <%= button_to status.capitalize,
+                        update_status_admin_order_path(@order),
+                        params: { status: status },
+                        method: :patch,
+                        class: "w-full text-left px-4 py-2 rounded border hover:bg-gray-50 transition" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

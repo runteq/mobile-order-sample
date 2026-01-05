@@ -1,0 +1,53 @@
+<div class="p-4 text-center">
+  <div class="py-8">
+    <div class="w-20 h-20 bg-green-100 rounded-full mx-auto flex items-center justify-center">
+      <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-6">Order Placed!</h2>
+    <p class="text-gray-500 mt-2">Thank you for your order</p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow p-6 text-left">
+    <div class="text-center mb-4">
+      <span class="text-sm text-gray-500">Order Number</span>
+      <p class="text-3xl font-bold text-green-600">#<%= @order.id %></p>
+    </div>
+
+    <div class="border-t pt-4 space-y-2">
+      <div class="flex justify-between">
+        <span class="text-gray-500">Status</span>
+        <span class="font-medium capitalize"><%= @order.status %></span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-gray-500">Total</span>
+        <span class="font-bold text-green-600"><%= number_to_currency(@order.total_price_yen, unit: "¥", precision: 0) %></span>
+      </div>
+      <% if @order.pickup_at.present? %>
+        <div class="flex justify-between">
+          <span class="text-gray-500">Pickup Time</span>
+          <span class="font-medium"><%= l(@order.pickup_at, format: :short) %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="border-t mt-4 pt-4">
+      <h3 class="font-bold mb-2">Items</h3>
+      <% @order.order_items.each do |item| %>
+        <div class="flex justify-between text-sm py-1">
+          <span><%= item.product.name %> x<%= item.qty %></span>
+          <span><%= number_to_currency(item.subtotal, unit: "¥", precision: 0) %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
+    <p class="font-bold">Demo Notice</p>
+    <p>This is a demo order. No actual payment or delivery will be made.</p>
+  </div>
+
+  <%= link_to "Order More", liff_root_path, class: "block w-full bg-green-500 text-white py-3 rounded-lg font-bold text-lg mt-6 hover:bg-green-600 transition" %>
+</div>

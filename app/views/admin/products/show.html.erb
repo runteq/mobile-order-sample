@@ -1,0 +1,43 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold">Product Details</h1>
+  <div class="flex gap-2">
+    <%= link_to "Edit", edit_admin_product_path(@product), class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+    <%= link_to "Back", admin_products_path, class: "text-gray-500 hover:text-gray-700 px-4 py-2" %>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg shadow p-6 max-w-2xl">
+  <div class="flex gap-6">
+    <% if @product.image_url.present? %>
+      <img src="<%= @product.image_url %>" alt="<%= @product.name %>" class="w-32 h-32 rounded object-cover">
+    <% end %>
+
+    <div class="space-y-4">
+      <div>
+        <span class="text-sm text-gray-500">Name</span>
+        <p class="font-medium text-lg"><%= @product.name %></p>
+      </div>
+
+      <div>
+        <span class="text-sm text-gray-500">Price</span>
+        <p class="font-medium"><%= number_to_currency(@product.price_yen, unit: "¥", precision: 0) %></p>
+      </div>
+
+      <div>
+        <span class="text-sm text-gray-500">Status</span>
+        <p>
+          <% if @product.is_active %>
+            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Active</span>
+          <% else %>
+            <span class="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">Inactive</span>
+          <% end %>
+        </p>
+      </div>
+
+      <div>
+        <span class="text-sm text-gray-500">Sort Order</span>
+        <p class="font-medium"><%= @product.sort_order %></p>
+      </div>
+    </div>
+  </div>
+</div>

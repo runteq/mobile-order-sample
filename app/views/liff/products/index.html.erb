@@ -1,0 +1,29 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Menu</h2>
+
+  <div class="grid grid-cols-2 gap-4">
+    <% @products.each do |product| %>
+      <div class="bg-white rounded-lg shadow overflow-hidden" id="<%= dom_id(product) %>">
+        <% if product.image_url.present? %>
+          <img src="<%= product.image_url %>" alt="<%= product.name %>" class="w-full h-32 object-cover">
+        <% else %>
+          <div class="w-full h-32 bg-gray-200 flex items-center justify-center">
+            <span class="text-gray-400">No Image</span>
+          </div>
+        <% end %>
+
+        <div class="p-3">
+          <h3 class="font-semibold text-sm truncate"><%= product.name %></h3>
+          <p class="text-green-600 font-bold"><%= number_to_currency(product.price_yen, unit: "¥", precision: 0) %></p>
+
+          <%= button_to liff_cart_items_path(product_id: product.id),
+                        method: :post,
+                        class: "mt-2 w-full bg-green-500 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-green-600 transition",
+                        data: { turbo_frame: "_top" } do %>
+            Add to Cart
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
