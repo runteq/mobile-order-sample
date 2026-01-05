@@ -21,8 +21,10 @@ module Liff
         cart.delete(product_id)
       end
 
+      load_cart_items
+
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("cart", partial: "liff/carts/cart") }
+        format.turbo_stream
         format.html { redirect_to liff_cart_path }
       end
     end
@@ -30,10 +32,33 @@ module Liff
     def destroy
       cart.delete(params[:product_id])
 
+      load_cart_items
+
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("cart", partial: "liff/carts/cart") }
+        format.turbo_stream
         format.html { redirect_to liff_cart_path }
       end
+    end
+
+    private
+
+    def load_cart_items
+      if cart.empty?
+        @cart_items = []
+        @total = 0
+        return
+      end
+
+      product_ids = cart.keys.map(&:to_i)
+      products = Product.where(id: product_ids).index_by(&:id)
+
+      @cart_items = cart.map do |product_id, qty|
+        product = products[product_id.to_i]
+        next unless product
+        { product: product, qty: qty }
+      end.compact
+
+      @total = @cart_items.sum { |item| item[:product].price_cents * item[:qty] }
     end
   end
 end

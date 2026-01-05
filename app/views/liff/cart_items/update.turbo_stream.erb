@@ -1,0 +1,13 @@
+<%= turbo_stream.replace "cart" do %>
+  <%= render partial: "liff/carts/cart" %>
+<% end %>
+
+<%= turbo_stream.replace "cart-badge-container" do %>
+  <div id="cart-badge-container" class="absolute -top-1 -right-1">
+    <% if cart_count > 0 %>
+      <span id="cart-badge" class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+        <%= cart_count %>
+      </span>
+    <% end %>
+  </div>
+<% end %>
