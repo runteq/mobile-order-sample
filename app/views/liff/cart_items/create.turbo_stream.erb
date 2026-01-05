@@ -1,0 +1,20 @@
+<%= turbo_stream.replace "cart-badge-container" do %>
+  <div id="cart-badge-container" class="absolute -top-1 -right-1">
+    <% if cart_count > 0 %>
+      <span id="cart-badge" class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-bounce-once">
+        <%= cart_count %>
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
+<%= turbo_stream.append "toast-container" do %>
+  <div class="bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-slide-up"
+       data-controller="toast"
+       data-toast-duration-value="2000">
+    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span>カートに追加しました</span>
+  </div>
+<% end %>

@@ -43,11 +43,13 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
-            <% if cart_count > 0 %>
-              <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                <%= cart_count %>
-              </span>
-            <% end %>
+            <div id="cart-badge-container" class="absolute -top-1 -right-1">
+              <% if cart_count > 0 %>
+                <span id="cart-badge" class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <%= cart_count %>
+                </span>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </header>
@@ -71,6 +73,8 @@
       <footer class="fixed bottom-0 left-0 right-0 bg-gray-100 border-t border-gray-200 p-2 text-center text-xs text-gray-500">
         これはデモ注文です。実際の決済・配達は行われません。
       </footer>
+
+      <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2"></div>
     </div>
   </body>
 </html>
