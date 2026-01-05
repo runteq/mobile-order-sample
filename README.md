@@ -142,6 +142,71 @@ docker compose exec web rails db:seed
 docker compose logs -f web
 ```
 
+## ローカル開発でのLIFFデバッグ（ngrok使用）
+
+LIFFはHTTPSが必須のため、ローカル開発では[ngrok](https://ngrok.com/)を使用してトンネリングします。
+
+### 1. ngrokのインストール
+
+```bash
+# macOS (Homebrew)
+brew install ngrok
+
+# または公式サイトからダウンロード
+# https://ngrok.com/download
+```
+
+### 2. ngrokアカウント設定
+
+```bash
+# ngrokにサインアップ後、認証トークンを設定
+ngrok config add-authtoken YOUR_AUTH_TOKEN
+```
+
+### 3. アプリを起動してngrokでトンネル作成
+
+```bash
+# ターミナル1: アプリを起動
+docker compose up -d
+
+# ターミナル2: ngrokでトンネル作成
+ngrok http 3000
+```
+
+ngrokが起動すると以下のようなURLが表示されます:
+
+```
+Forwarding    https://xxxx-xxx-xxx.ngrok-free.app -> http://localhost:3000
+```
+
+### 4. LINE DevelopersでLIFFエンドポイントURLを更新
+
+1. [LINE Developers Console](https://developers.line.biz/console/) にアクセス
+2. 対象のLIFFアプリを選択
+3. エンドポイントURLを `https://xxxx-xxx-xxx.ngrok-free.app/liff` に変更
+4. 保存
+
+### 5. LINEアプリからアクセス
+
+LINEアプリで以下のURLを開きます:
+
+```
+https://liff.line.me/{LIFF_ID}
+```
+
+### 注意事項
+
+- ngrokの無料プランではURLが起動ごとに変わるため、毎回LINE DevelopersでエンドポイントURLの更新が必要です
+- ngrok有料プランでは固定ドメインが利用可能です
+- ngrok経由のアクセスでは初回に「Visit Site」ボタンが表示される場合があります
+
+### テスト実行
+
+```bash
+# RSpecテストを実行
+docker compose exec -e RAILS_ENV=test web bundle exec rspec
+```
+
 ## デプロイ（Render）
 
 ### Render設定
