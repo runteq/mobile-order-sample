@@ -1,9 +1,9 @@
 <div class="p-4">
-  <h2 class="text-xl font-bold mb-4">Order Confirmation</h2>
+  <h2 class="text-xl font-bold mb-4">注文確認</h2>
 
   <%= form_with url: liff_orders_path, method: :post, class: "space-y-6" do |f| %>
     <div class="bg-white rounded-lg shadow p-4">
-      <h3 class="font-bold mb-3">Order Items</h3>
+      <h3 class="font-bold mb-3">注文内容</h3>
       <div class="space-y-3">
         <% @cart_items.each do |item| %>
           <div class="flex justify-between items-center">
@@ -16,29 +16,29 @@
         <% end %>
       </div>
       <div class="border-t mt-3 pt-3 flex justify-between items-center font-bold text-lg">
-        <span>Total</span>
+        <span>合計</span>
         <span class="text-green-600"><%= number_to_currency(@total, unit: "¥", precision: 0) %></span>
       </div>
     </div>
 
     <div class="bg-white rounded-lg shadow p-4">
-      <h3 class="font-bold mb-3">Pickup Time (Optional)</h3>
+      <h3 class="font-bold mb-3">受取時間（任意）</h3>
       <%= f.datetime_local_field :pickup_at, class: "w-full border border-gray-300 rounded-lg p-3" %>
     </div>
 
     <div class="bg-white rounded-lg shadow p-4">
-      <h3 class="font-bold mb-3">Note (Optional)</h3>
-      <%= f.text_area :note, rows: 3, maxlength: 140, placeholder: "Any special requests...", class: "w-full border border-gray-300 rounded-lg p-3 resize-none" %>
-      <p class="text-xs text-gray-500 mt-1">Max 140 characters</p>
+      <h3 class="font-bold mb-3">備考（任意）</h3>
+      <%= f.text_area :note, rows: 3, maxlength: 140, placeholder: "ご要望があればご記入ください...", class: "w-full border border-gray-300 rounded-lg p-3 resize-none" %>
+      <p class="text-xs text-gray-500 mt-1">最大140文字</p>
     </div>
 
     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
-      <p class="font-bold">Demo Notice</p>
-      <p>This is a demo order. No actual payment or delivery will be made.</p>
+      <p class="font-bold">デモ注文について</p>
+      <p>これはデモ注文です。実際の決済・配達は行われません。</p>
     </div>
 
-    <%= f.submit "Place Order", class: "w-full bg-green-500 text-white py-4 rounded-lg font-bold text-lg hover:bg-green-600 transition cursor-pointer" %>
+    <%= f.submit "注文を確定する", class: "w-full bg-green-500 text-white py-4 rounded-lg font-bold text-lg hover:bg-green-600 transition cursor-pointer" %>
   <% end %>
 
-  <%= link_to "Back to Cart", liff_cart_path, class: "block text-center text-gray-500 mt-4" %>
+  <%= link_to "カートに戻る", liff_cart_path, class: "block text-center text-gray-500 mt-4" %>
 </div>

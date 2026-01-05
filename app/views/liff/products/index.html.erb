@@ -1,5 +1,5 @@
 <div class="p-4">
-  <h2 class="text-xl font-bold mb-4">Menu</h2>
+  <h2 class="text-xl font-bold mb-4">メニュー</h2>
 
   <div class="grid grid-cols-2 gap-4">
     <% @products.each do |product| %>
@@ -8,7 +8,7 @@
           <%= image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name, class: "w-full h-32 object-cover" %>
         <% else %>
           <div class="w-full h-32 bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-400">No Image</span>
+            <span class="text-gray-400">画像なし</span>
           </div>
         <% end %>
 
@@ -20,7 +20,7 @@
                         method: :post,
                         class: "mt-2 w-full bg-green-500 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-green-600 transition",
                         data: { turbo_frame: "_top" } do %>
-            Add to Cart
+            カートに追加
           <% end %>
         </div>
       </div>

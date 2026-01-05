@@ -34,7 +34,7 @@ RSpec.describe "Liff::Orders", type: :request do
       it "clears the cart after order" do
         post liff_orders_path
         get liff_cart_path
-        expect(response.body).to include("empty")
+        expect(response.body).to include("カートは空です")
       end
     end
 

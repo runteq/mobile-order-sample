@@ -6,8 +6,8 @@
     <svg class="w-16 h-16 text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
     </svg>
-    <p class="mt-4 text-gray-500">Your cart is empty</p>
-    <%= link_to "Browse Menu", liff_root_path, class: "mt-4 inline-block bg-green-500 text-white py-2 px-6 rounded-lg font-medium" %>
+    <p class="mt-4 text-gray-500">カートは空です</p>
+    <%= link_to "メニューを見る", liff_root_path, class: "mt-4 inline-block bg-green-500 text-white py-2 px-6 rounded-lg font-medium" %>
   </div>
 <% else %>
   <div class="space-y-4">
@@ -17,7 +17,7 @@
           <%= image_tag item[:product].image.variant(resize_to_limit: [100, 100]), alt: item[:product].name, class: "w-16 h-16 rounded object-cover" %>
         <% else %>
           <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-            <span class="text-gray-400 text-xs">No Image</span>
+            <span class="text-gray-400 text-xs">画像なし</span>
           </div>
         <% end %>
 
@@ -51,12 +51,12 @@
 
   <div class="mt-6 bg-white rounded-lg shadow p-4">
     <div class="flex justify-between items-center text-lg font-bold">
-      <span>Total</span>
+      <span>合計</span>
       <span class="text-green-600"><%= number_to_currency(total, unit: "¥", precision: 0) %></span>
     </div>
   </div>
 
   <div class="mt-6">
-    <%= link_to "Proceed to Checkout", liff_checkout_path, class: "block w-full bg-green-500 text-white text-center py-3 rounded-lg font-bold text-lg hover:bg-green-600 transition" %>
+    <%= link_to "注文に進む", liff_checkout_path, class: "block w-full bg-green-500 text-white text-center py-3 rounded-lg font-bold text-lg hover:bg-green-600 transition" %>
   </div>
 <% end %>

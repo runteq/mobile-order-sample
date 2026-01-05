@@ -1,0 +1,9 @@
+ja:
+  order:
+    status:
+      pending: 受付中
+      confirmed: 確認済み
+      preparing: 準備中
+      ready: 準備完了
+      completed: 完了
+      cancelled: キャンセル
