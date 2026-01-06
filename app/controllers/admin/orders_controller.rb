@@ -1,6 +1,7 @@
 module Admin
   class OrdersController < BaseController
     before_action :set_order, only: [ :show, :update_status ]
+    before_action :cleanup_old_orders, only: [ :index ]
 
     def index
       @orders = Order.includes(:user, :order_items).order(created_at: :desc)
@@ -35,6 +36,10 @@ module Admin
 
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def cleanup_old_orders
+      Order.where("created_at < ?", 30.minutes.ago).destroy_all
     end
   end
 end
