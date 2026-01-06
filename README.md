@@ -28,10 +28,22 @@ cp .env.example .env
 `.env`ファイルを編集して必要な値を設定:
 
 ```
+# LIFF設定
 LIFF_ID=your_liff_id_here
+
+# LINE Messaging API
 LINE_CHANNEL_ACCESS_TOKEN=your_channel_access_token_here
+
+# 管理画面Basic認証
 ADMIN_USER=admin
 ADMIN_PASSWORD=password
+
+# 本番用 (Render)
+# DATABASE_URL=postgres://user:password@host:5432/dbname
+# RAILS_MASTER_KEY=your_master_key_here
+
+# Cloudinary (本番用画像ストレージ)
+# CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
 ```
 
 ### 2. Docker Composeで起動
@@ -102,6 +114,36 @@ docker compose logs -f web
 | `ADMIN_PASSWORD` | 管理画面Basic認証パスワード | Yes |
 | `LIFF_ID` | LIFFアプリID | Yes |
 | `LINE_CHANNEL_ACCESS_TOKEN` | LINE Messaging APIトークン | Yes (通知機能) |
+| `CLOUDINARY_URL` | Cloudinary接続URL | Yes (本番) |
+
+## Cloudinary設定（本番環境の画像ストレージ）
+
+本番環境では商品画像の保存にCloudinaryを使用します。
+
+### 1. Cloudinaryアカウント作成
+
+1. [Cloudinary](https://cloudinary.com/) にアクセス
+2. 無料アカウントを作成（月25GBまで無料）
+3. ダッシュボードにアクセス
+
+### 2. 接続情報の取得
+
+ダッシュボードの「API Environment variable」から`CLOUDINARY_URL`をコピー:
+
+```
+CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+```
+
+### 3. 環境変数の設定
+
+本番環境（Render等）に`CLOUDINARY_URL`環境変数を設定します。
+
+### 注意事項
+
+- **開発環境**: ローカルディスク（Active Storage local）を使用
+- **本番環境**: Cloudinaryを使用（`config/environments/production.rb`で設定済み）
+- 画像形式: PNG, JPEG, WebP対応
+- 最大サイズ: 5MB
 
 ## デモ操作手順
 
